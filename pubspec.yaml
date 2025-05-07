@@ -33,6 +33,8 @@ dependencies:
   flutter:
     sdk: flutter
   flutterfire_cli: ^1.2.0
+  image_picker: ^1.1.2
+  skeletonizer: ^1.4.3
 
 dev_dependencies:
   flutter_lints: ^5.0.0
