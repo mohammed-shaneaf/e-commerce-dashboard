@@ -1,0 +1,76 @@
+{
+    "tabnine.experimentalAutoImports": true,
+    "workbench.iconTheme": "material-icon-theme",
+    "code-runner.clearPreviousOutput": true,
+    "code-runner.runInTerminal": true,
+    // تحسينات Dart
+    "[dart]": {
+        "editor.formatOnSave": true,
+        "editor.formatOnType": true,
+        "editor.rulers": [
+            80
+        ],
+        "editor.selectionHighlight": false,
+        "editor.suggestSelection": "first",
+        "editor.tabCompletion": "onlySnippets",
+        "editor.wordBasedSuggestions": "off",
+        "editor.quickSuggestions": {
+            "other": true,
+            "comments": true,
+            "strings": true
+        }
+    },
+    // تفعيل التنسيق والإصلاح عند الحفظ (const وغيرها)
+    "editor.codeActionsOnSave": {
+        "source.fixAll": "explicit",
+        "source.organizeImports": "explicit"
+    },
+    // إعدادات Dart إضافية
+    "dart.checkForSdkUpdates": false,
+    "dart.debugExternalPackageLibraries": false,
+    "dart.debugSdkLibraries": false,
+    "dart.lineLength": 80,
+    "dart.completeFunctionCalls": true,
+    // تحسين الكتابة والأداء العام
+    "editor.quickSuggestions": {
+        "other": true,
+        "comments": true,
+        "strings": true
+    },
+    "editor.suggest.snippetsPreventQuickSuggestions": false,
+    "editor.suggestSelection": "first",
+    "editor.tabCompletion": "on",
+    "editor.acceptSuggestionOnEnter": "smart",
+    "editor.parameterHints.enabled": true,
+    "editor.inlineSuggest.enabled": true,
+    "editor.wordBasedSuggestions": "off",
+    "editor.snippetSuggestions": "inline",
+    "editor.autoClosingBrackets": "always",
+    "editor.autoClosingQuotes": "always",
+    "editor.autoSurround": "languageDefined",
+    // تنسيق تلقائي
+    "editor.formatOnSave": true,
+    "editor.formatOnType": true,
+    "editor.formatOnPaste": true,
+    // حفظ تلقائي عند الانتقال من الملف
+    "files.autoSave": "onFocusChange",
+    // تحسين تجربة Git
+    "git.autofetch": true,
+    "git.openRepositoryInParentFolders": "never",
+    "git.confirmSync": false,
+    "git.ignoreRebaseWarning": true,
+    // ملفات YAML
+    "files.associations": {
+        "*.yaml": "yaml"
+    },
+    // واجهة وألوان
+    "workbench.editor.enablePreview": false,
+    "workbench.colorTheme": "One Dark Pro",
+    "explorer.confirmDelete": false,
+    "explorer.compactFolders": false,
+    // إعدادات عامة
+    "editor.fontSize": 16,
+    "workbench.settings.applyToAllProfiles": [
+        "editor.fontSize"
+    ]
+}
