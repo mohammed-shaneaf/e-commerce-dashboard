@@ -16,7 +16,7 @@ class AddProductViewBody extends StatefulWidget {
 
 class _AddProductViewBodyState extends State<AddProductViewBody> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  final AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
+  AutovalidateMode _autovalidateMode = AutovalidateMode.disabled;
 
   final _nameController = TextEditingController();
   final _priceController = TextEditingController();
@@ -69,6 +69,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                   controller: _nameController,
                   textInputType: TextInputType.name,
                   hintText: 'Enter Product Name',
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Product name is required';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 16),
 
@@ -76,6 +82,15 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                   controller: _priceController,
                   textInputType: TextInputType.number,
                   hintText: 'Enter Product Price',
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Price is required';
+                    }
+                    if (double.tryParse(value) == null) {
+                      return 'Enter a valid number';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 16),
 
@@ -83,6 +98,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                   controller: _codeController,
                   textInputType: TextInputType.text,
                   hintText: 'Enter Product Code',
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Product code is required';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 16),
 
@@ -91,6 +112,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                   textInputType: TextInputType.multiline,
                   hintText: 'Enter Product Description',
                   maxlines: 3,
+                  validator: (value) {
+                    if (value == null || value.trim().isEmpty) {
+                      return 'Description is required';
+                    }
+                    return null;
+                  },
                 ),
                 const SizedBox(height: 24),
 
@@ -164,9 +191,23 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
 
                 CustomButton(
                   onPressed: () {
-                    setState(() => _isLoading = true);
+                    final isValid = _formKey.currentState?.validate() ?? false;
+                    setState(() {
+                      _autovalidateMode = AutovalidateMode.always;
+                    });
 
-                    // simulate form submission
+                    if (!isValid || _pickedImage == null) {
+                      if (_pickedImage == null) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          const SnackBar(
+                            content: Text('Please select a product image'),
+                          ),
+                        );
+                      }
+                      return;
+                    }
+
+                    setState(() => _isLoading = true);
                     Future.delayed(const Duration(seconds: 2), () {
                       setState(() => _isLoading = false);
                     });
