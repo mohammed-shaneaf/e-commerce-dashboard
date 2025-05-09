@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:fruits_hub_dashboard/core/utils/widgets/custom_button.dart';
 import 'package:fruits_hub_dashboard/core/utils/widgets/custom_text_form_field.dart';
+import 'package:fruits_hub_dashboard/core/utils/widgets/featured_cheack_box.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:skeletonizer/skeletonizer.dart';
 
@@ -23,13 +24,12 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
   final _codeController = TextEditingController();
 
   File? _pickedImage;
-
   bool _isLoading = true;
+  bool _isFeatured = false;
 
   @override
   void initState() {
     super.initState();
-    // Simulate loading
     Future.delayed(const Duration(seconds: 2), () {
       setState(() {
         _isLoading = false;
@@ -37,7 +37,7 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
     });
   }
 
-  Future<void> _pickImage() async {
+  Future<void> pickImage() async {
     final picked = await ImagePicker().pickImage(source: ImageSource.gallery);
     if (picked != null) {
       setState(() {
@@ -94,43 +94,70 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                 ),
                 const SizedBox(height: 24),
 
+                FeaturedCheckbox(
+                  value: _isFeatured,
+                  onChanged: (val) {
+                    setState(() {
+                      _isFeatured = val ?? false;
+                    });
+                  },
+                ),
+                const SizedBox(height: 24),
+
                 GestureDetector(
-                  onTap: _pickImage,
-                  child: Container(
-                    height: 150,
-                    width: double.infinity,
-                    decoration: BoxDecoration(
-                      color: Colors.grey.shade100,
-                      border: Border.all(color: Colors.grey.shade300),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child:
-                        _pickedImage != null
-                            ? ClipRRect(
-                              borderRadius: BorderRadius.circular(12),
-                              child: Image.file(
-                                _pickedImage!,
-                                fit: BoxFit.cover,
-                                width: double.infinity,
-                              ),
-                            )
-                            : Center(
-                              child: Column(
-                                mainAxisAlignment: MainAxisAlignment.center,
-                                children: const [
-                                  Icon(
-                                    Icons.cloud_upload_outlined,
-                                    size: 40,
-                                    color: Colors.grey,
+                  onTap: pickImage,
+                  child: Stack(
+                    children: [
+                      Container(
+                        height: 250,
+                        width: double.infinity,
+                        decoration: BoxDecoration(
+                          color: Colors.grey.shade100,
+                          border: Border.all(color: Colors.grey.shade300),
+                          borderRadius: BorderRadius.circular(12),
+                        ),
+                        child:
+                            _pickedImage != null
+                                ? ClipRRect(
+                                  borderRadius: BorderRadius.circular(16),
+                                  child: Image.file(
+                                    _pickedImage!,
+                                    fit: BoxFit.cover,
+                                    width: double.infinity,
                                   ),
-                                  SizedBox(height: 10),
-                                  Text(
-                                    'Tap to upload product photo',
-                                    style: TextStyle(color: Colors.grey),
+                                )
+                                : Center(
+                                  child: Column(
+                                    mainAxisAlignment: MainAxisAlignment.center,
+                                    children: const [
+                                      Icon(
+                                        Icons.cloud_upload_outlined,
+                                        size: 50,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(height: 10),
+                                      Text(
+                                        'Tap to upload product photo',
+                                        style: TextStyle(color: Colors.grey),
+                                      ),
+                                    ],
                                   ),
-                                ],
-                              ),
-                            ),
+                                ),
+                      ),
+                      if (_pickedImage != null)
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: IconButton(
+                            onPressed: () {
+                              setState(() {
+                                _pickedImage = null;
+                              });
+                            },
+                            icon: const Icon(Icons.close, size: 32),
+                            color: Colors.red,
+                          ),
+                        ),
+                    ],
                   ),
                 ),
                 const SizedBox(height: 40),
@@ -138,10 +165,10 @@ class _AddProductViewBodyState extends State<AddProductViewBody> {
                 CustomButton(
                   onPressed: () {
                     setState(() => _isLoading = true);
-                    // simulate submission
+
+                    // simulate form submission
                     Future.delayed(const Duration(seconds: 2), () {
                       setState(() => _isLoading = false);
-                      // show success snackbar
                     });
                   },
                   text: 'Submit To Add Product',
