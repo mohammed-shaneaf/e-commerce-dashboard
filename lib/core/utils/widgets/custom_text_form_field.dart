@@ -5,6 +5,7 @@ class CustomTextFormField extends StatelessWidget {
   final TextInputType textInputType;
   final String hintText;
   final int? maxlines;
+  final String label;
   final String? Function(String?)? validator;
 
   const CustomTextFormField({
@@ -14,6 +15,8 @@ class CustomTextFormField extends StatelessWidget {
     required this.hintText,
     this.maxlines = 1,
     this.validator,
+    required this.label,
+    required int maxLines,
   });
 
   @override
@@ -24,6 +27,7 @@ class CustomTextFormField extends StatelessWidget {
       maxLines: maxlines,
       validator: validator,
       decoration: InputDecoration(
+        label: Text(label),
         hintText: hintText,
         border: const OutlineInputBorder(),
         contentPadding: const EdgeInsets.symmetric(
