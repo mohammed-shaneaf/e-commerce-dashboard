@@ -29,7 +29,7 @@
     "dart.checkForSdkUpdates": false,
     "dart.debugExternalPackageLibraries": false,
     "dart.debugSdkLibraries": false,
-    "dart.lineLength": 80,
+    "dart.lineLength": 120,
     "dart.completeFunctionCalls": true,
     // تحسين الكتابة والأداء العام
     "editor.quickSuggestions": {
