@@ -1,4 +1,4 @@
-# fruits_hub_dashboard
+dashboard
 
 A new Flutter project.
 
